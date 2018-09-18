@@ -1,0 +1,20 @@
+
+; ModuleID = "max.llvm"
+declare i32 @printf(i8*,...); import the prototype of printf
+
+@msg=constant [9 * i8] c "got: %d\0A\00"
+
+define i32 @max(i32 %a, i32 %b){
+entry:
+	%t0=icmp sle i32 %a, %b
+	br i1 %t0, label %then, label %else
+then:
+	%t1=and i32 %b, %b
+
+;; Write your code here.
+int main(){
+    extern int printf(char* format,...);
+    int x= max(5,10);
+    printf("max_is_%d\n",x);
+    return 0;
+    }

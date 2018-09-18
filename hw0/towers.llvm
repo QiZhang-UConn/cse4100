@@ -1,0 +1,4 @@
+; ModuleID = "towers.llvm"
+declare i32 @printf(i8*,...)         ; import the prototype of printf
+
+;; Write your code here.

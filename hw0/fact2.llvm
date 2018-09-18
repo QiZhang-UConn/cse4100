@@ -1,0 +1,4 @@
+; ModuleID = "fact2.llvm"
+declare i32 @printf(i8*,...)                           ; export the prototype of printf
+
+;; Write your code here.

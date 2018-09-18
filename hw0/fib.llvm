@@ -1,0 +1,4 @@
+; ModuleID = "fib.llvm"
+declare i32 @printf(i8*,...)                           ; export the prototype of printf
+
+;; Write your code here.
