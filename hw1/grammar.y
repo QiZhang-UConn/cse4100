@@ -20,9 +20,24 @@
 %pure-parser
 %parse-param { Parser* parser }
 
+
+
 %token <val> NUMBER TRUE FALSE 
 %token <id>  TID
-%token TIF
+%token TIF TTHEN
+%token LRB RRB
+%token LBRAC RBRAC
+%token LCBRAC RCBRAC
+%token TWHILE
+%token TELSE
+%token LEQ
+%token TDIV
+%token SCOL
+%token COM
+%token TADD
+%token GEQ
+%token COMP
+%token NEQ
 
 %left TOR 
 %left TAND
@@ -31,6 +46,22 @@
 %%
 
 Top:
+   | input line
+   ;
+
+
+
+
 ;
 %%
 
+yyerror(char *message)
+{
+  printf("%s\n",message);
+}
+
+int main(int argc, char* argv[])
+{
+  yyparse();
+  return(0);
+}

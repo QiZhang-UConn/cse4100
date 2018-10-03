@@ -39,4 +39,4 @@ bSort: $(OFILES1)
 	$(C) -g -c $(CXXFLAGS) $< -MD
 
 clean:
-	rm -rf *.o *.s *.bc bins bSort *~
+	rm -rf *.o *.s  *.d *.bc bins bSort *~

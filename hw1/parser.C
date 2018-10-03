@@ -24,6 +24,12 @@ void Parser::run(const char* fn)
    // YYSTYPE is the type of the union declared in the grammar file. 
    // For instance, val.val would be of type int while val.id would be
    // of type char*.
+   tok = yylex(&val);
+   std::cout<<"This is token"<< tok << val.id <<  endl;
+
+   tok = yylex(&val);
+   std::cout<<"This is token"<<tok<<val.val<<end;
+   
 }
 
 extern "C" int yywrap()

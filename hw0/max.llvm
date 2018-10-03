@@ -1,8 +1,8 @@
+; ModuleID = "max.llvm" 
 
-; ModuleID = "max.llvm"
 declare i32 @printf(i8*,...); import the prototype of printf
 
-@msg=constant [9 * i8] c "got: %d\0A\00"
+@msg=constant [9 x i8] c "got:_%d\0A\00"
 
 define i32 @max(i32 %a, i32 %b){
 entry:
@@ -10,11 +10,17 @@ entry:
 	br i1 %t0, label %then, label %else
 then:
 	%t1=and i32 %b, %b
+	br label %exit
+else:
+	%t2= and i32 %a,%a
+	br label %exit
+exit:
+	%t3=phi i32[%t1,%then],[%t2,%else]
+	ret i32 %t3
+}
 
-;; Write your code here.
-int main(){
-    extern int printf(char* format,...);
-    int x= max(5,10);
-    printf("max_is_%d\n",x);
-    return 0;
-    }
+define i32 @main(){
+       %t1=call i32 @max(i32 5, i32 10)
+       %t2=call i32(i8*,...)@printf(i8* getelementptr ([9 xi8],[9xi8]*@msg, i32 0, i32 0),i32 %t1)
+       ret i32 %t1
+}
