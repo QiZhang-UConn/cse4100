@@ -25,11 +25,14 @@
  // Give them a lexeme when appropriate (from HW1)
  // Deal with operator precedence and associativity
 
+
 %token <val> NUMBER TRUE FALSE
 %token <id>  TID THIS
-%token <smb> TIF TELSE TEQ NEQ LEQ GEQ TAND TOR TNEW  TINT TBOOL TVOID TDB
+%token <smb> TIF TELSE NEQ TEQ LEQ GEQ TAND TOR TNEW  TINT TBOOL TVOID TDB
 %token <smb> TRETURN TWHILE TCLASS TEXTENDS 
 
+%left '+' '-'
+%left '*' '/'
 
  
  // Fill in!
@@ -49,10 +52,40 @@
 Top: Statement { parser->success(); }
 ;
 
-Statement: 
+Statement: EXPR ';'
+|TID '=' EXPR ';' 
+|TRETURN EXPR ';'
+|'{' Statement '}'
+|TIF '(' COMP ')' Statement
+|TYPE TDB TID';'
+|';'
 ;
+
 
 // Fill in!
 
+COMP:EXPR TEQ EXPR
+|EXPR GEQ EXPR
+|EXPR LEQ EXPR
+|EXPR TAND EXPR
+;
+
+EXPR:'(' EXPR ')'
+|EXPR '*' EXPR
+|EXPR '-' EXPR
+|EXPR '/' EXPR
+|EXPR '+' EXPR
+|TNEW TYPE '[' EXPR ']'
+|TID
+|NUMBER
+;
+
+
+
+TYPE:TINT
+|TBOOL
+|TVOID
+|TID
+;
 
 %%
