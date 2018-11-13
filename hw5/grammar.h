@@ -75,12 +75,18 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "grammar.y" /* yacc.c:1909  */
+#line 12 "grammar.y" /* yacc.c:1909  */
 
    int        val;
    char*      id;
+  AST::Program* program;
+  AST::Class*  cls;
+  AST::Expr* expr;
+  AST::Stmt* stmt;
+  AST::Type* type;
+  AST::Decl* decl;
 
-#line 84 "grammar.h" /* yacc.c:1909  */
+#line 90 "grammar.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

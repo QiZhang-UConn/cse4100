@@ -4,6 +4,7 @@
 #include <list>
 #include "parser.H"
 #include "ast.H"
+#include "ast.C"
 #include <string.h>
 #define YYERROR_VERBOSE   
 %}
@@ -11,7 +12,14 @@
 %union {
    int        val;
    char*      id;
+  AST::Program* program;
+  AST::Class*  cls;
+  AST::Expr* expr;
+  AST::Stmt* stmt;
+  AST::Type* type;
+  AST::Decl* decl;
 }
+
 %code{
   int yyerror(Parser* p,const char* s);
   int yylex(YYSTYPE*);
@@ -39,20 +47,27 @@
 %left '['
 %left '.'
 
+%type <program> ClassList
+%type <cls> ClassDecl
+%type <stmt> Stmt
+%type <decl> Decl
+%type <expr> Expr
+%type <type> Type
+
 %%
 
  // You need to modify this rule to comply with the handout and pass new AST::Program($1) once you
  // have correctly implemented the actions in ClassList.
 
-Top: ClassList { parser->saveRoot(nullptr);}
+Top: ClassList { parser->saveRoot(new AST::Program($1));}
 ;
 
-ClassList: ClassDecl ClassList
-|                       
+ClassList: ClassDecl ClassList 
+| {}
 ;
 
-ClassDecl: TCLASS TID '{' DeclList '}' ';'      
-| TCLASS TID TEXTENDS TID '{' DeclList '}' ';'  
+ClassDecl: TCLASS TID '{' DeclList '}' ';' 
+| TCLASS TID TEXTENDS TID '{' DeclList '}' ';'
 ;
 
 DeclList : Decl DeclList   
@@ -102,11 +117,11 @@ Relation: Relation TAND Relation
   | Expr                           
 ;
 
-Expr: Expr '+' Expr   
-| Expr '-' Expr       
-| Expr '*' Expr       
-| Expr '/' Expr       
-| NUMBER              
+Expr: Expr '+' Expr   {$$ =new AST::Add($1,$3);}
+| Expr '-' Expr       {$$ =new AST::Sub($1,$3);}
+| Expr '*' Expr       {$$ =new AST::Mul($1,$3);}
+| Expr '/' Expr       {$$ =new AST::Div($1,$3);}
+| NUMBER              {$$ =new AST::Number($1);}
 | TRUE                
 | FALSE               
 | '-' Expr            

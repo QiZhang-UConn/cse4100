@@ -69,10 +69,11 @@
 #include <list>
 #include "parser.H"
 #include "ast.H"
+#include "ast.C"
 #include <string.h>
 #define YYERROR_VERBOSE   
 
-#line 76 "grammar.c" /* yacc.c:339  */
+#line 77 "grammar.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -137,12 +138,18 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "grammar.y" /* yacc.c:355  */
+#line 12 "grammar.y" /* yacc.c:355  */
 
    int        val;
    char*      id;
+  AST::Program* program;
+  AST::Class*  cls;
+  AST::Expr* expr;
+  AST::Stmt* stmt;
+  AST::Type* type;
+  AST::Decl* decl;
 
-#line 146 "grammar.c" /* yacc.c:355  */
+#line 153 "grammar.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -158,14 +165,14 @@ int yyparse (Parser* parser);
 
 /* Copy the second part of user declarations.  */
 
-#line 162 "grammar.c" /* yacc.c:358  */
+#line 169 "grammar.c" /* yacc.c:358  */
 /* Unqualified %code blocks.  */
-#line 15 "grammar.y" /* yacc.c:359  */
+#line 23 "grammar.y" /* yacc.c:359  */
 
   int yyerror(Parser* p,const char* s);
   int yylex(YYSTYPE*);
 
-#line 169 "grammar.c" /* yacc.c:359  */
+#line 176 "grammar.c" /* yacc.c:359  */
 
 #ifdef short
 # undef short
@@ -464,13 +471,13 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    47,    47,    50,    51,    54,    55,    58,    59,    62,
-      63,    64,    67,    68,    71,    72,    75,    78,    79,    82,
-      83,    84,    85,    86,    87,    88,    89,    90,    93,    94,
-      95,    96,    97,    98,    99,   100,   101,   102,   105,   106,
-     107,   108,   109,   110,   111,   112,   113,   114,   115,   116,
-     119,   120,   121,   122,   123,   126,   127,   130,   131,   134,
-     135,   136,   137,   140,   141
+       0,    62,    62,    65,    66,    69,    70,    73,    74,    77,
+      78,    79,    82,    83,    86,    87,    90,    93,    94,    97,
+      98,    99,   100,   101,   102,   103,   104,   105,   108,   109,
+     110,   111,   112,   113,   114,   115,   116,   117,   120,   121,
+     122,   123,   124,   125,   126,   127,   128,   129,   130,   131,
+     134,   135,   136,   137,   138,   141,   142,   145,   146,   149,
+     150,   151,   152,   155,   156
 };
 #endif
 
@@ -1343,13 +1350,19 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 47 "grammar.y" /* yacc.c:1646  */
-    { parser->saveRoot(nullptr);}
-#line 1349 "grammar.c" /* yacc.c:1646  */
+#line 62 "grammar.y" /* yacc.c:1646  */
+    { parser->saveRoot(new AST::Program((yyvsp[0].program)));}
+#line 1356 "grammar.c" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 66 "grammar.y" /* yacc.c:1646  */
+    {}
+#line 1362 "grammar.c" /* yacc.c:1646  */
     break;
 
 
-#line 1353 "grammar.c" /* yacc.c:1646  */
+#line 1366 "grammar.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1577,5 +1590,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 144 "grammar.y" /* yacc.c:1906  */
+#line 159 "grammar.y" /* yacc.c:1906  */
 

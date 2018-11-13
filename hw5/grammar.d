@@ -187,4 +187,4 @@ grammar.o: grammar.c \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/7.3.0/../../../../include/c++/7.3.0/array \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/7.3.0/../../../../include/c++/7.3.0/bits/uses_allocator.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/7.3.0/../../../../include/c++/7.3.0/bits/invoke.h \
-  /usr/include/string.h /usr/include/strings.h
+  ast.C /usr/include/string.h /usr/include/strings.h

@@ -52,6 +52,44 @@ namespace AST {
      Program(std::list<Class*>* c);
      ostream& print(ostream& os) const;
    };
+
+  class Binary: public Expr{
+  protected:
+    Expr* _left;
+    Expr* _right;
+    virtual const char* opName() const=0;
+  public:
+    Binary(Expr* l,Expr* r): _left(l), _right(r){}
+    ostream& print(ostream& os)const;
+  };
+
+  class Add: public Binary{
+    const char* opName() const{return "+";}
+  public:
+    Add(Expr* l, Expr* r):Binary(l,r){}
+  };
+
+  class Sub: public Binary{
+    const char* opName() const{return "-";}
+  public:
+    Sub(Expr* l, Expr* r):Binary(l,r){}
+  };
+
+  class Mul: public Binary{
+    const char* opName() const{return "*";}
+  public:
+    Sub(Expr* l, Expr* r):Binary(l,r){}
+  };
+
+  class Div: public Binary{
+    const char* opName() const{return "/";}
+  public:
+    Div(Expr* l, Expr* r): Binary(l,r){}
+  };
+
+  class Number: public TypeInt{
+    Number(TypeInt* n): {return n;}
+			};
 };
 
 #endif
